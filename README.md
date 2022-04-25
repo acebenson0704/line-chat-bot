@@ -5,7 +5,6 @@
 [![Stargazers][stars-shield]][stars-url]
 [![Forks][forks-shield]][forks-url]
 [![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
 
 <!-- PROJECT LOGO -->
 <div align="center">
@@ -45,7 +44,7 @@
 When you send keywords, reply corresponding message.
 Message types including: **Text message**, **Sticker message**, **Template message**, **Flex message**
 
-<detail>
+<details>
 <summary>keywords</summary>
 <ol>
   <li>portfolio</li>
@@ -58,7 +57,7 @@ Message types including: **Text message**, **Sticker message**, **Template messa
   <li>github</li>
   <li>help</li>
 </ol>
-</detail>
+</details>
 
 ### Reply Sticker
 
