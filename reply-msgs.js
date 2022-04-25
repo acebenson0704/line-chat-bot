@@ -12,19 +12,16 @@ const keyword2function = {
 
 
 function getReplyMsgs(keyword, baseURL) {
-  let msgs = [];
-
-  keyword = keyword.toLowerCase()
+  keyword = keyword.toLowerCase();
 
   if (!(keyword in keyword2function)) {
-    let mainMsg = {
+    return [{
       "type": "text",
       "text": `The keyword "${keyword}" is not found, you can list all keywords by "help"`
-    };
-    msgs.push(mainMsg);
-    return msgs;
+    }];
   }
 
+  let msgs = [];
   let mainMsgs = keyword2function[keyword](baseURL);
   msgs.push(...mainMsgs);
   return msgs;
@@ -440,10 +437,18 @@ function getHelpMsgs() {
 
   let mainMsg = {
     "type": "text",
-    "text": `The following are all keywords: ${Object.keys(keyword2function).join(", ")}`
+    "text": `The following are all keywords: ${Object.keys(keyword2function).join(", ")} (case insensitive)`,
+    "quickReply": {
+      "items": Object.keys(keyword2function).map((keyword) => {return {
+        "type": "action",
+        "action": {
+          "type": "message",
+          "label": keyword,
+          "text": keyword
+        }
+      }})
+    }
   }
-  let quickReply;
-  
   msgs.push(mainMsg);
   return msgs;
 }

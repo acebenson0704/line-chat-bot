@@ -34,18 +34,32 @@ const client = new line.Client(config);
 
 // event handler
 function handleEvent(event) {
-  if (event.type !== 'message' || event.message.type !== 'text') {
+  if (event.type !== 'message') {
     return Promise.resolve(null);
   }
 
-  return handleText(event.message, event.replyToken);
+  if (event.message.type === 'text')
+    return handleText(event.message, event.replyToken);
+  else if (event.message.type === 'sticker')
+    return handleSticker(event.message, event.replyToken);
+  else
+    return Promise.resolve(null);
 }
 
 function handleText(message, replyToken) {
-  console.log("baseURL", baseURL);
   const msgs = getReplyMsgs(message.text, baseURL);
-  console.log("msgs: ");
-  console.log(msgs);
+  return client.replyMessage(
+    replyToken,
+    msgs 
+  );
+}
+
+function handleSticker(message, replyToken) {
+  const msgs = {
+    type: 'sticker',
+    packageId: message.packageId,
+    stickerId: message.stickerId,
+  }
   return client.replyMessage(
     replyToken,
     msgs 
